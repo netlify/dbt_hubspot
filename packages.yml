@@ -1,3 +1,2 @@
 packages:
-  - package: fivetran/hubspot_source
-    version: [">=0.3.0", "<0.4.0"]
+  - local: ~/Developer/netlify/dbt_github_source
