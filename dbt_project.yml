@@ -48,23 +48,22 @@ vars:
     engagement_task: "{{ ref('stg_hubspot__engagement_task') }}"
 
     email_metrics: [
-                    'bounces',
-                    'clicks',
-                    'deferrals',
-                    'deliveries',
-                    'drops',
-                    'forwards',
-                    'opens',
-                    'prints',
-                    'spam_reports',
-                    'unsubscribes'
-                    ]
+      'bounces',
+      'clicks',
+      'deferrals',
+      'deliveries',
+      'drops',
+      'forwards',
+      'opens',
+      'prints',
+      'spam_reports',
+      'unsubscribes'
+    ]
 
 
 models:
   hubspot:
-    +materialized: table
-    +schema: hubspot
+    +materialized: view
     marketing:
       intermediate:
         +materialized: ephemeral

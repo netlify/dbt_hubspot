@@ -1,4 +1,7 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_deal_history',
+    enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])
+) }}
 
 with history as (
 
@@ -19,7 +22,7 @@ with history as (
 
 ), surrogate as (
 
-    select 
+    select
         windows.*,
         {{ dbt_utils.surrogate_key(['field_name','deal_id','valid_from']) }} as id
     from windows

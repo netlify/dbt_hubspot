@@ -1,4 +1,7 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_deals',
+    enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])
+) }}
 
 with deals_enhanced as (
 
@@ -32,7 +35,7 @@ with deals_enhanced as (
 
 ), engagements_joined as (
 
-    select 
+    select
         deals_enhanced.*,
         {% for metric in engagement_metrics() %}
         coalesce(engagement_deal_agg.{{ metric }},0) as {{ metric }} {% if not loop.last %},{% endif %}

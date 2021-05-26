@@ -1,4 +1,7 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_engagements',
+    enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_engagement_enabled'])
+) }}
 
 with engagements as (
 
@@ -14,7 +17,7 @@ with engagements as (
 
 ), contacts_agg as (
 
-    select 
+    select
         engagement_id,
         {{ fivetran_utils.array_agg('contact_id') }} as contact_ids
     from contacts
@@ -28,10 +31,10 @@ with engagements as (
 
     select *
     from {{ var('engagement_deal') }}
- 
+
 ), deals_agg as (
 
-    select 
+    select
         engagement_id,
         {{ fivetran_utils.array_agg('deal_id') }} as deal_ids
     from deals
@@ -48,7 +51,7 @@ with engagements as (
 
 ), companies_agg as (
 
-    select 
+    select
         engagement_id,
         {{ fivetran_utils.array_agg('company_id') }} as company_ids
     from companies
@@ -58,7 +61,7 @@ with engagements as (
 
 ), joined as (
 
-    select 
+    select
         {% if fivetran_utils.enabled_vars(['hubspot_engagement_contact_enabled']) %} contacts_agg.contact_ids, {% endif %}
         {% if fivetran_utils.enabled_vars(['hubspot_engagement_deal_enabled']) %} deals_agg.deal_ids, {% endif %}
         {% if fivetran_utils.enabled_vars(['hubspot_engagement_company_enabled']) %} companies_agg.company_ids, {% endif %}

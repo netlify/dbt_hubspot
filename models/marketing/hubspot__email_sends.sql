@@ -1,4 +1,7 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_email_sends',
+    enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled'])
+) }}
 
 with sends as (
 
@@ -28,7 +31,7 @@ with sends as (
 
 ), booleans as (
 
-    select 
+    select
         *,
         bounces > 0 as was_bounced,
         clicks > 0 as was_clicked,
@@ -49,7 +52,7 @@ with sends as (
 
 ), unsubscribes_joined as (
 
-    select 
+    select
         booleans.*,
         coalesce(unsubscribes.unsubscribes,0) as unsubscribes,
         coalesce(unsubscribes.unsubscribes,0) > 0 as was_unsubcribed

@@ -1,2 +1,2 @@
 packages:
-  - local: ~/Developer/netlify/dbt_github_source
+  - local: ~/Developer/netlify/dbt_hubspot_source

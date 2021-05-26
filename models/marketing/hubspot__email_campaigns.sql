@@ -1,4 +1,7 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_email_campaigns',
+    enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled','hubspot_email_event_enabled'])
+) }}
 
 
 with campaigns as (
@@ -13,7 +16,7 @@ with campaigns as (
 
 ), email_metrics as (
 
-    select 
+    select
         email_campaign_id,
         {% for metric in var('email_metrics') %}
         sum(email_sends.{{ metric }}) as total_{{ metric }},
@@ -25,7 +28,7 @@ with campaigns as (
 
 ), joined as (
 
-    select 
+    select
         campaigns.*,
         {% for metric in var('email_metrics') %}
         coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},

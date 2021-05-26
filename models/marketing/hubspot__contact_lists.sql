@@ -1,5 +1,7 @@
-
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_list_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_contact_lists',
+    enabled=fivetran_utils.enabled_vars(['hubspot_marketing_enabled', 'hubspot_contact_list_enabled'])
+) }}
 
 with contact_lists as (
 
@@ -15,7 +17,7 @@ with contact_lists as (
 
 ), joined as (
 
-    select 
+    select
         contact_lists.*,
         {% for metric in var('email_metrics') %}
         coalesce(email_metrics.total_{{ metric }}, 0) as total_{{ metric }},

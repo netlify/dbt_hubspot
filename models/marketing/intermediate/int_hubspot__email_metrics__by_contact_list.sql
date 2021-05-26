@@ -22,7 +22,7 @@ with email_sends as (
 
 ), email_metrics as (
 
-    select 
+    select
         contact_list_id,
         {% for metric in var('email_metrics') %}
         sum({{ metric }}) as total_{{ metric }},
