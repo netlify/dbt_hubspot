@@ -1,4 +1,7 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_companies',
+    enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_company_enabled'])
+) }}
 
 with companies as (
 
@@ -32,7 +35,7 @@ with companies as (
 
 ), joined as (
 
-    select 
+    select
         companies.*,
         {% for metric in engagement_metrics() %}
         coalesce(engagement_companies_agg.{{ metric }},0) as {{ metric }} {% if not loop.last %},{% endif %}

@@ -22,7 +22,7 @@ with deals as (
 
 ), deal_fields_joined as (
 
-    select 
+    select
         deals.*,
         pipelines.pipeline_label,
         pipelines.is_active as is_pipeline_active,

@@ -1,4 +1,7 @@
-{{ config(enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])) }}
+{{ config(
+    alias='mart_hubspot_deal_stages',
+    enabled=fivetran_utils.enabled_vars(['hubspot_sales_enabled','hubspot_deal_enabled'])
+) }}
 
 with deals_enhanced as (
 
@@ -14,7 +17,7 @@ with deals_enhanced as (
 
     select
         deal_stage.deal_id || '-' || row_number() over(partition by deal_stage.deal_id order by deal_stage.date_entered asc) as deal_stage_id,
-        deal_stage.deal_stage_name, 
+        deal_stage.deal_stage_name,
         deal_stage._fivetran_start as date_stage_entered,
         deal_stage._fivetran_end as date_stage_exited,
         deal_stage._fivetran_active as is_stage_active,
@@ -26,5 +29,5 @@ with deals_enhanced as (
         on deal_stage.deal_id = deals_enhanced.deal_id
 )
 
-select * 
+select *
 from final
