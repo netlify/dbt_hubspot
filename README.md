@@ -2,7 +2,7 @@
 
 This package models Hubspot data from [Fivetran's connector](https://fivetran.com/docs/applications/hubspot). It uses data in the format described by the [marketing](https://docs.google.com/presentation/d/1hrPp310SNK2qyESCV_g_JFx_Knm1MwB467wN3dEgy0M/edit#slide=id.g244d368397_0_1) and [sales](https://docs.google.com/presentation/d/1KABQnt8WmtZe7u5l7WFUoPIsWzv63P9gsWF79XGLoZE/edit#slide=id.g244d368397_0_1) ERDs.
 
-This package enables you to better understand your Hubspot email and engagement performance. The output includes models for contacts, companies, and deals with enriched email and engagement metrics. It also includes analysis-ready event tables for email and engagement activities.
+This package enables you to better understand your Hubspot email and engagement performance. The output includes models for contacts, companies, and deals with enriched email and engagement metrics. It also includes analysis-ready event tables for email and engagement activities
 
 ## Models
 
